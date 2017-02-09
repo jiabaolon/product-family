@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+	*{
+		margin: 0;padding: 0;
+	}
+	#box{
+		width:434px;
+		height: 434px;
+		text-align: center;
+		border: 1px red solid;
+		margin: 0 auto;
+	}
+	span{
+		display: inline-block;
+		width: 60px;
+		height: 60px;
+		float: left;
+		border: 1px #fff solid;
+		text-align: center;
+		line-height: 60px;
+		background: #ccc;
+	}
+	#box1{
+		width:434px;
+		height: 30px;
+		margin: 0 auto;
+		margin-top: 20px;
+	}
+	</style>
+</head>
+<body>
+	<div id="box1">
+		<button id="btn1">上个月</button>
+		年：<select onchange="qq()"></select>
+		月：<select onchange="qq()"></select>
+		<button id="btn">下个月</button>
+	</div>
+	<div id="box">
+		
+	</div>
+	<script>
+		var box=document.getElementById('box');
+		var sel=document.getElementsByTagName('select');
+		var da=new Date();
+		var nian=da.getFullYear();
+		var yue=da.getMonth()+1;
+		var btn=document.getElementById('btn');
+		var brn1=document.getElementById('btn1');
+		btn.onclick=function(){
+			if (sel[1].value==12) {
+				sel[1].value=1;
+				sel[0].value++
+			}else{
+				sel[1].value++;
+			}
+			
+			qq()
+		}
+		btn1.onclick=function(){
+			if (sel[1].value==1) {
+				sel[1].value=12;
+				sel[0].value--
+			}else{
+				sel[1].value--;
+			}
+			qq()
+		}
+		for(var i=0;i<=300;i++){
+			var newOp=document.createElement('option');
+				newOp.value=1900+i;
+				newOp.innerHTML=1900+i;
+				sel[0].appendChild(newOp)
+		}
+		for(var i=0;i<12;i++){
+			var newOp=document.createElement('option');
+				newOp.value=i+1;
+				newOp.innerHTML=i+1;
+				sel[1].appendChild(newOp)
+		}
+		sel[0].value=nian;
+		sel[1].value=yue;
+		function qq(){
+			box.innerHTML='';
+			var brr=['日','一','二','三','四','五','六'];
+			for(var j=0;j<7;j++){
+				var newSpan=document.createElement('span');
+					newSpan.innerHTML=brr[j]
+					box.appendChild(newSpan)
+			}
+			var today=new Date(sel[0].value,sel[1].value-1,1);
+			var year=today.getFullYear();
+			var month=today.getMonth();
+			var day=today.getDay();
+			var arr=[31,29,31,30,31,30,31,31,30,31,30,31];
+			if (year%4==0) {
+				arr[1]=29
+			}else{
+				arr[1]=28
+			}
+			for(var i=0;i<42;i++){
+				var newSpan=document.createElement('span');
+					box.appendChild(newSpan)
+			}
+			var span=document.getElementsByTagName('span');
+			for(var i=0;i<arr[month];i++){
+				span[i+7+day].innerHTML=i+1
+			}
+		}
+		qq()
+	</script>
+</body>
+</html>
