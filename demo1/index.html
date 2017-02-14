@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<script src="http://cdn.static.runoob.com/libs/angular.js/1.4.6/angular.min.js"></script>
+<style>
+	*{
+		margin:0;
+		padding: 0;
+	}
+
+	.shopCar dl{
+		clear: both;
+		overflow: hidden;
+		margin-bottom: 10px;
+	}
+	.shopCar dl dt{
+		width:50px;
+		height:50px;
+		background:red;
+		float: left;
+		margin-left: 20px;
+	}
+	.shopCar dl dd{
+        float: left;
+	}
+	.shopCar dl dd div{
+		float: left;
+		width: 60px;
+		margin-right: 50px;
+	}
+	.shopCar dl dt img{
+        width: 100%;
+
+	}
+    .bot{
+    	clear: both;
+    }
+    header p{
+       float: left;
+       margin-right: 40px;
+    }
+    header .item{
+    	width: 100px;
+    }
+</style> 
+</head>
+<body>
+ <div class="shopCar" ng-app='myApp' ng-controller='shop'>
+     <header>
+    	    <p>
+     	       <input type="checkbox" ng-model='checked' ng-change='allcheck()'><span>全选</span>	
+     	    </p>
+     	    <p class="item">
+     	    	商品信息
+     	    </p>
+     	    <p>数量</p>
+     	    <p>商品总价</p>
+     	    <p>操作</p>
+    </header>
+ 	 <dl ng-repeat='x in cnt'>
+ 	    <dd class="sel">
+ 	    	<input type="checkbox" ng-model='x.check'>
+ 	    </dd>
+ 	    <dt></dt>
+ 	    <dd>
+ 	    	<div class="title">{{x.name}}</div>
+ 	    	<div class="price">{{x.price}}</div>
+ 	    	<div class="count">
+ 	    		 <button ng-click='reduce($index)'>-</button>
+ 	    		 <span>{{x.count}}</span>
+ 	    		 <button ng-click='add($index)'>+</button>
+ 	    	</div>
+ 	    	<div class="all">{{x.count * x.price}}</div>
+ 	    	<div class="del">
+ 	    		<button ng-click='dev($index)'>删除</button>
+ 	    	</div>
+ 	    </dd>
+ 	 </dl>
+ 	 <p class="bot">
+ 	 	<p ng-model='getCount'>总价：{{getCount()}}</p>
+ 	 	<p>总数：{{getAllprice()}} </p>
+ 	 </p>
+
+ </div>
+<script>
+	  var  app=angular.module('myApp',[])
+	  app.controller('shop',function($scope){
+           $scope.cnt=[{
+           	   name:'product1',
+           	   price:189,
+           	   count:2,
+           	   check:false
+           },
+           {
+           	   name:'product2',
+           	   price:289,
+           	   count:1,
+           	   check:false
+           },
+           {
+           	   name:'product3',
+           	   price:119,
+           	   count:1,
+           	   check:false
+           },
+           {
+           	   name:'product4',
+           	   price: 079,
+           	   count:1,
+           	   check:false
+           }
+    
+           ];
+          
+           $scope.add = function(index){
+             	 this.cnt[index].count+=1
+             	console.log(this.cnt[index].count)
+
+           };
+           $scope.reduce = function(index){
+           	    if (this.cnt[index].count>0) {
+           	    	this.cnt[index].count-=1;
+           	    }
+             	 
+           };
+           $scope.getCount = function(){
+           	   var  num=0;
+           	   for(var i=0;i<this.cnt.length;i++){
+           	   	  if (this.cnt[i].check) {
+           	   	  	num+=this.cnt[i].count
+           	   	  }
+           	   	  
+           	   }
+              return num;
+           };
+           $scope.getAllprice = function(){
+           	   var  num=0;
+           	   for(var i=0;i<this.cnt.length;i++){
+           	   	if (this.cnt[i].check) {
+           	   	  num+=this.cnt[i].price*this.cnt[i].count
+           	   	 }
+           	   }
+              return num;
+           };
+           $scope.allcheck = function(){
+           	   if (this.checked) {
+           	   	for(var i=0;i<this.cnt.length;i++){
+           	   	     this.cnt[i].check=true;
+                }
+           	   
+           	   }else{
+           	   	 for(var i=0;i<this.cnt.length;i++){
+           	   	     this.cnt[i].check=false;
+                  } 
+           	   }
+              
+           };
+           $scope.dev = function(index){
+                 this.cnt.splice(index,1)
+           }
+
+	  })
+</script>
+</body>
+</html>
