@@ -1,1 +1,13 @@
+<<<<<<< HEAD
+<<<<<<< HEAD
+jjjjjjj
+=======
 jjjjjjjggggggg
+>>>>>>> 58ed0055dd286c28b1acf71eedf9cc9fae49808a
+=======
+
+jjjjjjjlove jjjjj
+
+
+
+>>>>>>> 54fad7e8cf0b5cff11d117a5112d372c0acc14e2
